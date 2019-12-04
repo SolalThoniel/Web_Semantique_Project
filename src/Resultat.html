@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Titre de l'onglet</title>
+    </head > <!-- fin de la 1ère partie : l'entête (les réglages) -->
+ 
+    <body>
+        <h1 id = "titre" >Comic Search</h1>
+       <!-- <img src="images/poisson.png" /> -->
+        <p id = "paragraphe">
+            Ici nous avons un moteur de recherche de Comics
+        </p> 
+	<TEXTAREA id = "mots_cles" rows=1 cols=40>Entrer ici vos mots cles de recherche</TEXTAREA>
+	<button onclick = "functionTitre()"> Rechercher </button>
+
+
+	<table id="tableauID" border="1"></table>
+
+  	<script> 
+	        function functionTitre () { 
+		    
+		    var motsCles = document.getElementById("mots_cles").value;
+		    document.getElementById("paragraphe").innerHTML = motsCles;
+    		}
+  	</script>
+
+    </body> <!-- fin de la 2e partie : le corps (la partie visible) -->
+</html>
