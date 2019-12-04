@@ -1,0 +1,11 @@
+#header{
+  width: 100%;
+}
+th, td {
+    border-bottom: 1px solid #ddd;
+  }
+#search {
+  text-align: right;
+  
+}
+
