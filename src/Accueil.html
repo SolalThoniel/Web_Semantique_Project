@@ -24,31 +24,43 @@
 	<script>
 
 	        function functionTitre () {  
-	/*	    var motsCles = document.getElementById("mots_cles").value;
+		    var motsCles = document.getElementById("mots_cles").value;
 		    document.getElementById("paragraphe").innerHTML = motsCles;
-    		}*/ 
-			var query = encodeURIComponent(  'Select ?c where{ ?c  rdf:type dbo:Comic.  ?c rdfs:label ?label. Filter(contains(?label, "Slayers")) }');
+			var query = encodeURIComponent(  'Select ?c where{ ?c  rdf:type dbo:Comic.  ?c rdfs:label ?label. Filter(contains(?label, '+motsCles+')) }');
+                        var query2 = encodeURIComponent(  'Select ?c where{ ?c  rdf:type dbo:Comic.  ?c dbo:author ?author. ?author rdfs:label ?authorName Filter(contains(?authorName, '+motsCles+')) }');
 
 			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			var url2 = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query2 +'&output=json';
+
+			var rep1 ;
+			var rep2 ;
 
 			$.getJSON(url+"&callback=?", function(resultats) {
-
+				rep1 = resultats.results.bindings;
 			  $(resultats.results.bindings).each(function(i) {
 
-			/*	$('#acteur').append("<strong>" + resultats.results.bindings[i].nom.value + "</strong>");
-
-				$('#acteur').append('<br />');
-
-				$('#acteur').append("<img src='" + resultats.results.bindings[i].photo.value + "' />");
-
-				$('#acteur').append('<p>' + resultats.results.bindings[i].description.value + '</p>');    */
-				document.getElementById("paragraphe").innerHTML = resultats.results.bindings[i].c.value ;
+			/*	document.getElementById("paragraphe").innerHTML = resultats.results.bindings[i].c.value ;*/
 				str = JSON.stringify(resultats.results.bindings );
 				console.log(str);
+				
 
 			  });
 
 			});
+
+			$.getJSON(url2+"&callback=?", function(resultats) {
+				rep2 = resultats.results.bindings;
+			  $(resultats.results.bindings).each(function(i) {
+			/*	document.getElementById("paragraphe").innerHTML = resultats.results.bindings[i].c.value ;*/
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str); 
+
+			  });
+
+			});
+
+			if(rep1.length > rep2.length) document.getElementById("paragraphe").innerHTML = "label";
+			else document.getElementById("paragraphe").innerHTML = "auteur";
 		}
   	</script>
 
