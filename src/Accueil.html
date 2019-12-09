@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Titre de l'onglet</title>
+    </head > <!-- fin de la 1ère partie : l'entête (les réglages) -->
+ 
+    <body>
+        <h1 id = "titre" >Comic Search</h1>
+       <!-- <img src="images/poisson.png" /> -->
+        <p id = "paragraphe">
+            Ici nous avons un moteur de recherche de Comics
+        </p> 
+	<TEXTAREA id = "mots_cles" rows=1 cols=40>Entrer ici vos mots cles de recherche</TEXTAREA>
+	<button onclick = "functionTitre()"> Rechercher </button>
+
+
+	<table id="tableauID" border="1"></table>
+
+  	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+	<script>
+
+	        function functionTitre () {  
+	/*	    var motsCles = document.getElementById("mots_cles").value;
+		    document.getElementById("paragraphe").innerHTML = motsCles;
+    		}*/ 
+			var query = encodeURIComponent(  'Select ?c where{ ?c  rdf:type dbo:Comic.  ?c rdfs:label ?label. Filter(contains(?label, "Slayers")) }');
+
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+
+			$.getJSON(url+"&callback=?", function(resultats) {
+
+			  $(resultats.results.bindings).each(function(i) {
+
+			/*	$('#acteur').append("<strong>" + resultats.results.bindings[i].nom.value + "</strong>");
+
+				$('#acteur').append('<br />');
+
+				$('#acteur').append("<img src='" + resultats.results.bindings[i].photo.value + "' />");
+
+				$('#acteur').append('<p>' + resultats.results.bindings[i].description.value + '</p>');    */
+				document.getElementById("paragraphe").innerHTML = resultats.results.bindings[i].c.value ;
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+
+			  });
+
+			});
+		}
+  	</script>
+
+    </body> <!-- fin de la 2e partie : le corps (la partie visible) -->
+</html>
