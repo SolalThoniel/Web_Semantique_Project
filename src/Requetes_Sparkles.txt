@@ -36,3 +36,17 @@ Select ?c where{
     ?c rdfs:label ?label.
     Filter(contains(?contenu, "Japanese manga series written") && contains(?label, "Ikkoku"))
 }
+
+Select distinct ?c where{
+    ?c  rdf:type dbo:Manga, dbo:Comic.
+} MINUS {?d dct:subject dbc:Visual_novels.}
+
+Select distinct ?c ?name where{
+    ?c  rdf:type dbo:Manga, dbo:Comic.
+    ?c dbp:name ?name.
+    ?c dbp:jaRomaji ?romaji.
+ MINUS {?c dct:subject dbc:Visual_novels.}
+ MINUS {?c rdf:type dbo:Film.}
+ MINUS {?c dbo:type dbr:Light_novel.}
+ filter (contains(lcase(str(?name)),lcase(motCle)) || contains(lcase(str(?romaji)),lcase(motCle)))
+}
