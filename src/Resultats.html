@@ -3,37 +3,54 @@
 <html lang="fr">
     <head>
 		<title>Comics Search</title>
-		<link rel="stylesheet" href="css/resultats.css">
+		<!--<link rel="stylesheet" href="css/resultats.css"> -->
         <meta charset="utf-8" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     </head > <!-- fin de la 1ère partie : l'entête (les réglages) -->
  
     <body>
         <h1 id = "titre" >Comic Search</h1>
-       <!-- <img src="images/poisson.png" /> -->
+		<!-- <img src="images/poisson.png" /> -->
         <p id = "paragraphe">
             Ici nous avons un moteur de recherche de Comics
         </p> 
-	<TEXTAREA id = "mots_cles" rows=1 cols=40>Entrer ici vos mots cles de recherche</TEXTAREA>
-	<button onclick = "functionTitre()"> Rechercher </button>
+		
+		<input type="text" id="motCle" name="motCle">
+		
+		<button onclick = "functionTitre()"> Rechercher </button>
+		
 
-
-	<table id="tableauID" border="1"></table>
-
-  	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-
+		<table id="tableauID" border="1"></table>
+		
+		
 	<script>
+		
+		function getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, '\\$&');
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		}
 
-	        function functionTitre () {  
-		    var motsCles = document.getElementById("mots_cles").value;
-		    
-    		
+		var motCleGet = getParameterByName('motCle');
+
+		document.getElementById("motCle").value = motCleGet;
+		
+		function functionTitre () {  
+			var motsCles = document.getElementById("motCle").value;
+			
+			console.log(motsCles);
+			
 			var query = encodeURIComponent(  'Select ?c where{ ?c  rdf:type dbo:Comic.  ?c rdfs:label ?label. Filter(contains(?label, "'+motsCles+'")) }');
 
 			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
-
+			
 			$.getJSON(url+"&callback=?", function(resultats) {
 
-			  $(resultats.results.bindings).each(function(i) {
+				$(resultats.results.bindings).each(function(i) {
 
 			/*	$('#acteur').append("<strong>" + resultats.results.bindings[i].nom.value + "</strong>");
 
@@ -46,10 +63,13 @@
 				str = JSON.stringify(resultats.results.bindings );
 				console.log(str);
 
-			  });
+				});
 
 			});
 		}
+		
+		functionTitre();
+		
   	</script>
 
     </body> <!-- fin de la 2e partie : le corps (la partie visible) -->
