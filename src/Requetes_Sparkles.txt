@@ -45,8 +45,9 @@ Select distinct ?c ?name where{
     ?c  rdf:type dbo:Manga, dbo:Comic.
     ?c dbp:name ?name.
     ?c dbp:jaRomaji ?romaji.
+    ?c dbp:jaKanji ?kanji.
  MINUS {?c dct:subject dbc:Visual_novels.}
  MINUS {?c rdf:type dbo:Film.}
  MINUS {?c dbo:type dbr:Light_novel.}
- filter (contains(lcase(str(?name)),lcase(motCle)) || contains(lcase(str(?romaji)),lcase(motCle)))
+ filter (contains(lcase(str(?name)),lcase(motCle)) || contains(lcase(str(?romaji)),lcase(motCle)) || contains(str(?kanji),lcase(motCle)) )
 }
