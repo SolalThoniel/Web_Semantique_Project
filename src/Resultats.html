@@ -44,7 +44,8 @@
 			
 			console.log(motsCles);
 			
-			var query = encodeURIComponent(  'Select ?c where{ ?c  rdf:type dbo:Comic.  ?c rdfs:label ?label. Filter(contains(?label, "'+motsCles+'")) }');
+			//var query = encodeURIComponent(  'Select ?c where{ ?c  rdf:type dbo:Comic.  ?c rdfs:label ?label. Filter(contains(?label, "'+motsCles+'")) }');
+			var query = encodeURIComponent(  'Select distinct ?c ?name where{ ?c  rdf:type dbo:Manga, dbo:Comic. ?c dbp:name ?name. ?c dbp:jaRomaji ?romaji. ?c dbp:jaKanji ?kanji. MINUS {?c dct:subject dbc:Visual_novels.} MINUS {?c rdf:type dbo:Film.} MINUS {?c dbo:type dbr:Light_novel.} filter (contains(lcase(str(?name)),lcase("'+motsCles+'")) || contains(lcase(str(?romaji)),lcase("'+motsCles+'")) || contains(str(?kanji),"'+motsCles+'") )}');
 
 			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
 			
