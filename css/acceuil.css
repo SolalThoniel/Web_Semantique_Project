@@ -1,16 +1,19 @@
 body {
-  background-image: url('../images/comic4.jpg');
+  background-image: url('../images/logo11.jpg');
   background-repeat: no-repeat;
  background-attachment: fixed;
   background-size: 100% 100%;
+  opacity : 0.8 ; 
 
   
 }
-div.zone-de-texte{
+
+
+section.zone-de-texte{
     display: block;
     margin-left: 430px;
     margin-right: auto;
-	margin-top: 300px;
+	margin-top: 200px;
     margin-bottom: auto	}
 
 
@@ -23,21 +26,23 @@ input[type="submit"]
 	margin:10px auto;
 	margin-top:0px;
 	border:0px;
-	border-radius:3px;
+	border-radius:6px;
 	cursor:pointer;
 	height:40px;
 }
 input[type="text"]
 {
-	padding:4px;
+	
 	color : #fff;
 	background:#000;
 	height:30px;
 	margin:10px auto;
 	margin-top:0px;
-	border:0px;
-	border-radius:3px;
-	cursor:pointer;
+	border-radius:4px;
+	cursor: text ; 
+	font-family:"Segoe Print", Verdan, Arial;
+	border:1px solid gray;
+	padding-left:10px ; 
 	
 }
 
@@ -48,15 +53,24 @@ input[type="submit"]:hover
 
 footer
 {
-	margin-top : 100px ; 
+	margin-top : 150px ; 
 	text-align:center;
 	margin-left:300px;
 	margin-right:300px;
 	box-shadow:2px 2px 10px white;
 	
 }
-p
+p,h1
 {
 	color : white ; 
 	size : 10px ;
+}
+.zone-de-recherche
+{
+  font-family:"Segoe Print", Verdan, Arial;
+  border:1px solid gray;
+  border-radius:4px;
+  background-image:url(images/papier.jpg);
+  padding-left:8px;
+}	 
 	 
