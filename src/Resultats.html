@@ -4,22 +4,17 @@
 <html lang="fr">
     <head>
         <title>Comics Search</title>
-        <!--<link rel="stylesheet" href="css/resultats.css"> -->
+        <link rel="stylesheet" href="../css/Resultats.css">
         <meta charset="utf-8" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     </head > <!-- fin de la 1ère partie : l'entête (les réglages) -->
  
     <body>
-        <h1 id = "titre" >Comic Search</h1>
-        <!-- <img src="images/poisson.png" /> -->
-        <p id = "paragraphe">
-            Ici nous avons un moteur de recherche de Comics
-        </p> 
-        
-        <input type="text" id="motCle" name="motCle">
-
+	<a href="Accueil.html"><img id="logo" src="../Images/manga-logo.jpg"/></a>
+		
+        <input type="hidden" id="motCle" name="motCle" >
+		
         <ul id="liste_resultats"></ul>
-        
         
 	<script>
 	    
@@ -59,7 +54,7 @@
                         ligne.appendChild(lien); // Append the text to <li>
                         */
                         
-                        var contenu_ligne = "<p id='paragraphe_resultat"+i+"' onclick='fonctionChoixResultat(\""+resultats.results.bindings[i].c.value+"\")'>"+resultats.results.bindings[i].name.value+" : "+resultats.results.bindings[i].c.value+"</p>";
+                        var contenu_ligne = "<p id='paragraphe_resultat"+i+"' onclick='fonctionChoixResultat(\""+resultats.results.bindings[i].c.value+"\")'>"+resultats.results.bindings[i].name.value+"  </p>";
                         
                         ligne.innerHTML = contenu_ligne;
                         
