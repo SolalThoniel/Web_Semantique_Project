@@ -1,0 +1,42 @@
+body {
+  background-image: url('../images/logo11111.jpg');
+  background-repeat: no-repeat;
+ background-attachment: fixed;
+  background-size: 100% 100%;
+  opacity : 0.8 ; 
+
+  
+}
+
+section#right-block
+{
+	float:right ;
+	border : solid ;
+		
+		margin-right:400px ;
+		
+		
+}
+div#Paragraphe
+{
+	margin-left : 10px ;
+}
+img#logo
+{
+	margin-bottom:100px ;
+	float:left;
+}
+table
+{
+	margin-left: 10px ;
+}
+td,th
+{
+	color : white ; 
+	opacity : 0.5 ;
+
+}
+h1
+{
+	text-align:center;
+}
