@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Comics Search</title>
+	<link rel="stylesheet" href="../css/Resultat.css">
+	
+  </head>
+  <body>
+		<a href="Accueil.html"><img id="logo" src="../Images/manga-logo.jpg"/></a>
+		
+		
+		<section id="right-block">
+			
+			<figure>
+			<h1 id="Titre">Titre</h1>
+			<img src="../Images/manga-book.jpg"/>
+			</figure>	
+			<h1 id="Resume">Résumé</h1>
+			
+			
+		
+				
+		<table>
+			
+		<tr>
+			<th>Illustrateur</th>
+			<td><p id="Illustrateur"></p></td>
+		</tr>
+		<tr >
+			<th >Scénariste</th>
+			<td><p id="Scenariste"></td>
+		</tr>
+		<tr>
+			<th>Maison d'edition</th>
+			<td><p id="Maisonedition"></td>
+		</tr>
+		
+		<tr>
+			<th>Date de parution</th>
+			<td><p id="Date-de-parution"></td>
+		</tr>
+		<tr>
+			<th>Nombre d'albums</th>
+			<td><p id="Nombre-album"></p></td>
+		</tr>
+		
+		<tr>
+			<th>Autre Manga</th>
+			<td><p id="Autre"></p></td>
+		</tr>
+		
+	</table>
+			
+		</section>
+	
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+	<script>
+		function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        var lienGet = getParameterByName('lien');
+		console.log("****"+lienGet);
+			functionTitre(lienGet);
+			
+	        function functionTitre (lienManga) {
+
+    		//On reccupère le nom du manga
+			var query = encodeURIComponent(  'Select ?label where{<'+lienManga+'> rdfs:label ?label.Filter(langMatches(lang(?label),"FR")||langMatches(lang(?label),"EN")) }');
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			$.getJSON(url+"&callback=?", function(resultats) {
+			  $(resultats.results.bindings).each(function(i) {
+				document.getElementById("Titre").innerHTML = resultats.results.bindings[0].label.value ;
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+			  });
+			});
+			
+			
+			//On reccupère le résumé du manga
+			var query = encodeURIComponent(  'Select ?resume where{ <'+lienManga+'> rdfs:comment ?resume.Filter(langMatches(lang(?resume),"FR")||langMatches(lang(?label),"EN")) }');
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			$.getJSON(url+"&callback=?", function(resultats) {
+			  $(resultats.results.bindings).each(function(i) {
+			  
+				document.getElementById("Resume").innerHTML = resultats.results.bindings[0].resume.value ;
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+			  });
+			});
+			
+			//On reccupère l'illustrateur du manga
+			var query = encodeURIComponent(  'Select ?illustrator where{ <'+lienManga+'>  dbp:illustrator ?illustrator. }');
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			$.getJSON(url+"&callback=?", function(resultats) {
+			  $(resultats.results.bindings).each(function(i) {
+				document.getElementById("Illustrateur").innerHTML = resultats.results.bindings[0].illustrator.value ;
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+			  });
+			});
+			
+			//On reccupère le scénariste du manga
+			var query = encodeURIComponent(  'Select ?writer where{ <'+lienManga+'>  dbp:writer ?writer. }');
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			$.getJSON(url+"&callback=?", function(resultats) {
+			  $(resultats.results.bindings).each(function(i) {
+				document.getElementById("Scenariste").innerHTML += resultats.results.bindings[i].writer.value +"</br> ";
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+			  });
+			});
+			
+			
+			
+			
+			//On reccupère la maison edition du manga
+			var query = encodeURIComponent(  'Select ?maisonedition where{ <'+lienManga+'>  dbo:publisher ?resume. ?resume rdfs:label ?maisonedition. filter(langMatches(lang(?maisonedition),"FR" )||langMatches(lang(?label),"EN"))}');
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			$.getJSON(url+"&callback=?", function(resultats) {
+			  $(resultats.results.bindings).each(function(i) {
+				document.getElementById("Maisonedition").innerHTML = resultats.results.bindings[0].maisonedition.value ;
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+			  });
+			});
+			//On reccupère la date de parution du manga
+			var query = encodeURIComponent(  'Select ?label where{ <'+lienManga+'>  dbo:firstPublicationDate ?label. }');
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			$.getJSON(url+"&callback=?", function(resultats) {
+			  $(resultats.results.bindings).each(function(i) {
+				document.getElementById("Date-de-parution").innerHTML = resultats.results.bindings[0].label.value ;
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+			  });
+			});
+			//On reccupère le Nombre-album du manga
+			var query = encodeURIComponent(  'Select ?label where{ <'+lienManga+'>  dbo:numberOfVolumes ?label. }');
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			$.getJSON(url+"&callback=?", function(resultats) {
+			  var ref = -1;
+			  $(resultats.results.bindings).each(function(i) {
+			    var nbMax = resultats.results.bindings[i].label.value;
+				if(ref < nbMax) {
+					document.getElementById("Nombre-album").innerHTML = resultats.results.bindings[i].label.value ;
+					ref = nbMax;
+					}
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+			  });
+			});
+			//On reccupère la liste des manga du meme auteur
+			var query = encodeURIComponent('Select ?label where{ <'+lienManga+'> dbo:author ?c.?manga dbo:type dbr:Manga.?manga dbo:author ?auteur.?manga rdfs:label ?label .Filter(?c = ?auteur && (langMatches(lang(?label), "FR")||langMatches(lang(?label),"EN"))')
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
+			$.getJSON(url+"&callback=?", function(resultats) {
+			  $(resultats.results.bindings).each(function(i) {
+				document.getElementById("Autre").innerHTML += resultats.results.bindings[i].label.value +"</br>" ;
+				str = JSON.stringify(resultats.results.bindings );
+				console.log(str);
+			  });
+			});
+			
+			
+		}
+  	</script>
+		
+		
+	
+	
+  </body>
+</html>
