@@ -36,3 +36,13 @@ Select ?c where{
     ?c rdfs:label ?label.
     Filter(contains(?contenu, "Japanese manga series written") && contains(?label, "Ikkoku"))
 }
+
+
+Il manque :
+l'autocomplétion
+améliorer l'esthétique
+l'image
+gerer peut être plusieurs langues (ecrire les choses dans d'autres langues si elles sont pas dispo en anglais)
+virer le manga lui même des mangas du même auteur
+peut etre voir a aller sur une nouvelle version de la page plutot que de la reecrire
+pour le writer, au rechargement de la page, defois ça n'efface pas ce qu'il y avait avant
