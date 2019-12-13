@@ -1,0 +1,47 @@
+body {
+  background-image: url('../images/photo.jpg');
+  background-repeat: no-repeat;
+ background-attachment: fixed;
+  background-size: 100% 100%;
+  opacity : 0.8 ; 
+
+  
+}
+
+section#right-block
+{
+	float:right ;
+	border : solid ;
+		
+		margin-right:400px ;
+		margin-left:400px ;
+		
+		
+}
+div#Paragraphe
+{
+	margin-left : 10px ;
+}
+img#logo
+{
+	margin-bottom:40px ;
+	float:left;
+}
+table
+{
+	margin-left: 10px ;
+}
+td,th
+{
+	color : black ; 
+	
+
+}
+h1
+{
+	color : black ;
+	text-align:center;
+}
+p{
+	text-align:center;
+}
