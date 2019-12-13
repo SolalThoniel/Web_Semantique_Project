@@ -8,4 +8,45 @@ body {
   
 }
 
+section.zone-de-texte{
+    display: block;
+    margin-left: 430px;
+    margin-right: auto;
+	margin-top: 200px;
+    margin-bottom: auto	}
+
+
+input[type="button"]
+{
+	padding:4px;
+	color : #fff;
+	background:#000;
+	width:100px;
+	margin:10px auto;
+	margin-top:0px;
+	border:0px;
+	border-radius:6px;
+	cursor:pointer;
+	height:40px;
+}
+input[type="text"]
+{
+	color : #fff;
+	background:#000;
+	height:30px;
+	margin:10px auto;
+	margin-top:0px;
+	border-radius:4px;
+	cursor: text ; 
+	font-family:"Segoe Print", Verdan, Arial;
+	border:1px solid gray;
+	padding-left:10px ; 
+	
+}
+
+input[type="button"]:hover
+{
+	background:#0098ff;
+}
+
 
