@@ -4,8 +4,6 @@ body {
  background-attachment: fixed;
   background-size: 100% 100%;
   opacity : 0.8 ; 
-
-  
 }
 
 section.zone-de-texte{
@@ -15,6 +13,16 @@ section.zone-de-texte{
 	margin-top: 200px;
     margin-bottom: auto	}
 
+lienRes {
+  font-family:"Segoe Print", Verdan, Arial;
+  text-decoration: underline ;
+}
+
+lienRes:hover {
+  color : #f00;
+  font-family:"Segoe Print", Verdan, Arial;
+  text-decoration: underline ;
+}
 
 input[type="button"]
 {
@@ -29,6 +37,7 @@ input[type="button"]
 	cursor:pointer;
 	height:40px;
 }
+
 input[type="text"]
 {
 	color : #fff;
@@ -41,7 +50,6 @@ input[type="text"]
 	font-family:"Segoe Print", Verdan, Arial;
 	border:1px solid gray;
 	padding-left:10px ; 
-	
 }
 
 input[type="button"]:hover
