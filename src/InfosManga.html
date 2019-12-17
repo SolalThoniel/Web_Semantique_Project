@@ -92,8 +92,7 @@
 				if(size == 0) document.getElementById("Titre").innerHTML = "Non renseigne"; 
 			  $(resultats.results.bindings).each(function(i) {
 				document.getElementById("Titre").innerHTML = resultats.results.bindings[0].label.value ; 
-				str = JSON.stringify(resultats.results.bindings );
-   				wikipediaImageUrls(resultats.results.bindings[0].label.value);
+				str = JSON.stringify(resultats.results.bindings ); 
 				console.log(str);
 			  });
 			});
@@ -215,35 +214,7 @@
 			  });
 			}); 
 		} 
-
-function makeCall($url) {
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    return curl_exec($curl);
-}
  
-function wikipediaImageUrls($pageTitle) {
-  //  $imageUrls = array(); 
-    console.log("$$$$$$$$$$$$$$$$");
-    $imagesQuery = "http://en.wikipedia.org/w/api.php?action=query&titles={$pageTitle}&prop=images&format=json";
-    $jsonResponse = makeCall($imagesQuery);
-    $response = json_decode($jsonResponse, true);
-  /*  $imagesKey = key($response['query']['pages']);
-    foreach($response['query']['pages'][$imagesKey]['images'] as $imageArray) {
-        if($imageArray['title'] != 'File:Commons-logo.svg' && $imageArray['title'] != 'File:P vip.svg') {
-            $title = str_replace('File:', '', $imageArray['title']);
-            $title = str_replace(' ', '_', $title);
-            $imageUrlQuery = "http://en.wikipedia.org/w/api.php?action=query&titles=Image:{$title}&prop=imageinfo&iiprop=url&format=json";
-            $jsonUrlQuery = makeCall($imageUrlQuery);
-            $urlResponse = json_decode($jsonUrlQuery, true);
-            $imageKey = key($urlResponse['query']['pages']);
-            $imageUrls[] = $urlResponse['query']['pages'][$imageKey]['imageinfo'][0]['url'];
-        }
-    }
-    return $imageUrls;*/
-   console.log("ùùùùùùùù"+$response);
-}
 
   		
   	</script>
