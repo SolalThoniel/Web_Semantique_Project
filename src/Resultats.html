@@ -58,11 +58,17 @@
 						//document.getElementById("paragraphe").innerHTML = resultats.results.bindings[i].c.value ;
 						str = JSON.stringify(resultats.results.bindings );
 						//console.log(str);
+						var lien = resultats.results.bindings[i].c.value;
 						
 						var ligne = document.createElement("li"); // Create a <li> node
 						 
+						var url = window.location.href;
+				
+						var url2 = url.substr(0, url.indexOf("Resultats.html"));
 						
-						var contenu_ligne = "<p><lienres id='paragraphe_resultat"+i+"' onclick='navigationPageInfosManga(\""+resultats.results.bindings[i].c.value+"\")'>"+resultats.results.bindings[i].name.value+"  </lienres></p>";
+						var url3 = url2 + "InfosManga.html?lien=" + lien;
+
+						var contenu_ligne = "<p><a id='paragraphe_resultat"+i+"' onclick='navigationPageInfosManga("+lien+")' href="+url3+">"+resultats.results.bindings[i].name.value+"  </a></p>";
 						
 						ligne.innerHTML = contenu_ligne;
 						
@@ -75,15 +81,15 @@
 			function navigationPageInfosManga(lien) {
 			
 				console.log("click sur : "+lien);
+				console.log(url3);
 				
-				var url = window.location.href;
+				/*var url = window.location.href;
 				
 				var url2 = url.substr(0, url.indexOf("Resultats.html"));
 				
 				var url3 = url2 + "InfosManga.html?lien=" + lien;
-				console.log(url3);
 				
-				window.location.href = url3;
+				window.location.href = url3;*/
 				
 			}
 			
