@@ -198,7 +198,7 @@
 			});
 
 			//On reccupère la liste des manga du meme auteur
-			var query = encodeURIComponent('Select ?label ?manga where{ <'+lienManga+'> dbo:author ?c.?manga dbo:type dbr:Manga.?manga dbo:author ?auteur. ?manga rdfs:label ?label . Filter(?c = ?auteur && (langMatches(lang(?label), "EN")))}');
+			var query = encodeURIComponent('Select ?label ?manga where{ <'+lienManga+'> dbo:author ?c.?manga dbo:type dbr:Manga.?manga dbo:author ?auteur. ?manga rdfs:label ?label . Filter(?manga != <'+lienManga+'> && ?c = ?auteur && (langMatches(lang(?label), "EN")))}');
 			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
 			$.getJSON(url+"&callback=?", function(resultats) {
 				var size = resultats.results.bindings.length;
