@@ -15,7 +15,7 @@
 			
 			<figure>
 			<h1 id="Titre">Title</h1>
-			<img src="https://upload.wikimedia.org/wikipedia/en/a/aa/Battle_Angel_Alita_%28issue_1_-_cover%29.jpg"/>
+			<img id = "ImageRef" src="../Images/noir.jpg"/>
 			</figure>	
 			<h1 >Description	</h1>
 			<p id="Resume"></p>
@@ -81,6 +81,12 @@
 		var elem = document.getElementById("liste_resultats");         
 		var size = elem.getElementsByTagName("li").length;
 		for(var i = 0; i < size; i++){
+			$('#writer'+i).remove();
+		}
+
+		var elem2 = document.getElementById("Scenariste");         
+		var size2 = elem.getElementsByTagName("br").length;
+		for(var i = 0; i < size; i++){
 			$('#'+i).remove();
 		}
 
@@ -90,10 +96,11 @@
 			$.getJSON(url+"&callback=?", function(resultats) {        
 				var size = resultats.results.bindings.length;
 				if(size == 0) document.getElementById("Titre").innerHTML = "Non renseigne"; 
+				var b = document.getElementById("ImageRef");  
+				b.setAttribute("src", "https://en.wikipedia.org/wiki/File:"+resultats.results.bindings[0].label.value+".jpg");
+				console.log("****https://en.wikipedia.org/wiki/File:"+resultats.results.bindings[0].label.value+".jpg");
 			  $(resultats.results.bindings).each(function(i) {
-				document.getElementById("Titre").innerHTML = resultats.results.bindings[0].label.value ; 
-				str = JSON.stringify(resultats.results.bindings ); 
-				console.log(str);
+				document.getElementById("Titre").innerHTML = resultats.results.bindings[0].label.value ;  
 			  });
 			});
 			
@@ -105,9 +112,7 @@
 				var size = resultats.results.bindings.length;
 				if(size == 0) document.getElementById("Resume").innerHTML = "Non renseigne"; 
 			  $(resultats.results.bindings).each(function(i) { 
-				document.getElementById("Resume").innerHTML = resultats.results.bindings[0].resume.value ;
-				str = JSON.stringify(resultats.results.bindings );
-				console.log(str);
+				document.getElementById("Resume").innerHTML = resultats.results.bindings[0].resume.value ; 
 			  });
 			});
 
@@ -117,11 +122,8 @@
 			$.getJSON(url+"&callback=?", function(resultats) {
 				var size = resultats.results.bindings.length;
 				if(size == 0) document.getElementById("Auteur").innerHTML = "Non renseigne"; 
-			  $(resultats.results.bindings).each(function(i) {
-			  
-				document.getElementById("Auteur").innerHTML = resultats.results.bindings[0].name.value ;
-				str = JSON.stringify(resultats.results.bindings );
-				console.log(str);
+			  $(resultats.results.bindings).each(function(i) { 
+				document.getElementById("Auteur").innerHTML = resultats.results.bindings[0].name.value ; 
 			  });
 			});
 			
@@ -132,9 +134,7 @@
 				var size = resultats.results.bindings.length;
 				if(size == 0) document.getElementById("Illustrateur").innerHTML = "Non renseigne"; 
 			  $(resultats.results.bindings).each(function(i) {
-				document.getElementById("Illustrateur").innerHTML = resultats.results.bindings[0].illustrator.value ;
-				str = JSON.stringify(resultats.results.bindings );
-				console.log(str);
+				document.getElementById("Illustrateur").innerHTML = resultats.results.bindings[0].illustrator.value ; 
 			  });
 			});
 			
@@ -143,16 +143,15 @@
 			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
 			$.getJSON(url+"&callback=?", function(resultats) {
 				var size = resultats.results.bindings.length;
-				if(size == 0) document.getElementById("Scenariste").innerHTML = "Non renseigne"; 
+				
 			  $(resultats.results.bindings).each(function(i) {
-				document.getElementById("Scenariste").innerHTML += resultats.results.bindings[i].writer.value +"</br> ";
+				document.getElementById("Scenariste").innerHTML += "<br id = writer"+i+">" + resultats.results.bindings[i].writer.value +"</br> ";
 				str = JSON.stringify(resultats.results.bindings );
 				console.log(str);
 			  });
+				if(size == 0) document.getElementById("Scenariste").innerHTML = "<br id = writer"+0+"> Non renseigne </br> "; 
 			});
-			
-			
-			
+			 
 			
 			//On reccupère la maison edition du manga
 			var query = encodeURIComponent(  'Select ?maisonedition where{ <'+lienManga+'>  dbo:publisher ?resume. ?resume rdfs:label ?maisonedition. filter(langMatches(lang(?maisonedition),"EN"))}');
@@ -179,17 +178,16 @@
 			  });
 			});
 			//On reccupère le Nombre-album du manga
-			var query = encodeURIComponent(  'Select ?label where{ <'+lienManga+'>  dbo:numberOfVolumes ?label. }');
+			var query = encodeURIComponent(  'Select ?nombre where{ <'+lienManga+'>  dbo:numberOfVolumes ?nombre. }');
 			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpe dia.org&query='+ query +'&output=json';
 			$.getJSON(url+"&callback=?", function(resultats) {
 			  var ref = -1;
 				var size = resultats.results.bindings.length;
-				if(size == 0) document.getElementById("Nombre-album").innerHTML = "Non renseigne"; 
-				console.log("********"+size);
+				if(size == 0) document.getElementById("Nombre-album").innerHTML = "Non renseigne";  
 			  $(resultats.results.bindings).each(function(i) {
 			    var nbMax = resultats.results.bindings[i].label.value;
 				if(ref < nbMax) {
-					document.getElementById("Nombre-album").innerHTML = resultats.results.bindings[i].label.value ;
+					document.getElementById("Nombre-album").innerHTML = resultats.results.bindings[i].nombre.value ;
 					ref = nbMax;
 					}
 				str = JSON.stringify(resultats.results.bindings );
