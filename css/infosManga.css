@@ -45,3 +45,15 @@ h1
 p{
 	text-align:center;
 }
+/* unvisited link */
+li{
+  color: red;
+}
+/* mouse over link */
+li:hover {
+  color: hotpink;
+}
+/* selected link */
+li:active {
+  color: blue;
+}

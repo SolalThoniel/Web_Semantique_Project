@@ -204,7 +204,7 @@
 			  $(resultats.results.bindings).each(function(i) { 
 				var ligne = document.createElement("li"); // Create a <li> node 
 				ligne.setAttribute("id", i);
-                        	var contenu_ligne = "<li onclick='functionTitre(\""+resultats.results.bindings[i].manga.value+"\")'>"+resultats.results.bindings[i].label.value+"  </li>";
+                        	var contenu_ligne = "<li onclick='functionTitre(\""+resultats.results.bindings[i].manga.value+"\")' onmouseover='' style='cursor: pointer;'><u>"+resultats.results.bindings[i].label.value+"</u>  </li>";
                          	ligne.innerHTML = contenu_ligne;
                                 document.getElementById("liste_resultats").appendChild(ligne); 
 				str = JSON.stringify(resultats.results.bindings );
