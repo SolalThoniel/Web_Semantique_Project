@@ -30,10 +30,12 @@
 			<th>Illustrator</th>
 			<td><p id="Illustrateur"></p></td>
 		</tr>
+		<!--
 		<tr >
 			<th >Writer</th>
 			<td><p id="Scenariste"></td>
 		</tr>
+		-->
 		<tr>
 			<th>Publisher</th>
 			<td><p id="Maisonedition"></td>
@@ -137,7 +139,7 @@
 				document.getElementById("Illustrateur").innerHTML = resultats.results.bindings[0].illustrator.value ; 
 			  });
 			});
-			
+			/*
 			//On reccupère le scénariste du manga
 			var query = encodeURIComponent(  'Select ?writer where{ <'+lienManga+'>  dbp:writer ?writer. }');
 			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
@@ -151,7 +153,7 @@
 			  });
 				if(size == 0) document.getElementById("Scenariste").innerHTML = "<br id = writer"+0+"> Non renseigne </br> "; 
 			});
-			 
+			 */
 			
 			//On reccupère la maison edition du manga
 			var query = encodeURIComponent(  'Select ?maisonedition where{ <'+lienManga+'>  dbo:publisher ?resume. ?resume rdfs:label ?maisonedition. filter(langMatches(lang(?maisonedition),"EN"))}');
