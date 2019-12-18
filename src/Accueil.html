@@ -57,7 +57,7 @@
 					/*for each item in the array...*/
 					//for (i = 0; i < arr.length; i++) {
 					
-					var query = encodeURIComponent('Select distinct ?name where{ ?c  rdf:type dbo:Manga, dbo:Comic. ?c dbp:name ?name. ?c dbp:jaRomaji ?romaji. ?c dbp:jaKanji ?kanji. MINUS {?c dct:subject dbc:Visual_novels.} MINUS {?c rdf:type dbo:Film.} MINUS {?c dbo:type dbr:Light_novel.} filter (contains(lcase(str(?name)),lcase("'+val+'")) || contains(lcase(str(?romaji)),lcase("'+val+'")) || contains(str(?kanji),"'+val+'") )}');
+					var query = encodeURIComponent('Select distinct ?c ?name where{?c dbo:type dbr:Manga. ?c dbp:name ?name. ?c dbp:jaRomaji ?romaji. ?c dbp:jaKanji ?kanji. filter (contains(lcase(str(?name)),lcase("'+val+'")) || contains(lcase(str(?romaji)),lcase("'+val+'")) || contains(str(?kanji),lcase("'+val+'")) )}');
 					var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
 					$.getJSON(url+"&callback=?", function(resultats) {
 						

@@ -12,9 +12,9 @@ section#right-block
 {
 	float:right ;
 	border : solid ;
-		
-		margin-right:400px ;
-		margin-left:400px ;
+	border-width : 1px;
+		margin-right:300px ;
+		margin-left:300px ;
 		
 		
 }

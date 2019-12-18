@@ -181,13 +181,13 @@
 			});
 			//On reccupère le Nombre-album du manga
 			var query = encodeURIComponent(  'Select ?nombre where{ <'+lienManga+'>  dbo:numberOfVolumes ?nombre. }');
-			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpe dia.org&query='+ query +'&output=json';
+			var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
 			$.getJSON(url+"&callback=?", function(resultats) {
 			  var ref = -1;
 				var size = resultats.results.bindings.length;
 				if(size == 0) document.getElementById("Nombre-album").innerHTML = "Non renseigne";  
 			  $(resultats.results.bindings).each(function(i) {
-			    var nbMax = resultats.results.bindings[i].label.value;
+			    var nbMax = resultats.results.bindings[i].nombre.value;
 				if(ref < nbMax) {
 					document.getElementById("Nombre-album").innerHTML = resultats.results.bindings[i].nombre.value ;
 					ref = nbMax;
