@@ -7,7 +7,7 @@
         <meta charset="utf-8" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     </head > <!-- fin de la 1ère partie : l'entête (les réglages) -->
- 
+
     <body>
 		<a href="Accueil.html"><img id="logo" src="../Images/manga-logo.jpg"/></a>
 
@@ -16,18 +16,18 @@
 				<div class="autocomplete">
 					<input type="text" id="motCle" name="motCle" size="50" placeholder="Search a manga title here !"/>
 				</div>
-				
+
 				<input type="button" value="rechercher" onclick="rechercheTitre(0)"/>
 			</form>
 		</section>
 
 		<h1> Resultats de la recherche </h1>
-			
+
 		<ul id="liste_resultats"></ul>
 
 
 		<script>
-			
+
 			function getParameterByName(name, url) {
 				if (!url) url = window.location.href;
 				name = name.replace(/[\[\]]/g, '\\$&');
@@ -37,11 +37,11 @@
 				if (!results[2]) return '';
 				return decodeURIComponent(results[2].replace(/\+/g, ' '));
 			}
-			
+
 			var motCleGet = getParameterByName('motCle');
 			document.getElementById("motCle").value = motCleGet;
 			rechercheTitre(1);
-			
+
 			function rechercheTitre (premiere) {
 				if(premiere === 0){
 					document.getElementById("liste_resultats").innerHTML = "";
@@ -52,51 +52,51 @@
 				var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
 				$.getJSON(url+"&callback=?", function(resultats) {
 				var size = resultats.results.bindings.length;
-				if(size == 0) document.getElementById("liste_resultats").innerHTML = "Desole nous n'avons rien trouve"; 
+				if(size == 0) document.getElementById("liste_resultats").innerHTML = "Desole nous n'avons rien trouve";
 					$(resultats.results.bindings).each(function(i) {
-						 
+
 						//document.getElementById("paragraphe").innerHTML = resultats.results.bindings[i].c.value ;
 						str = JSON.stringify(resultats.results.bindings );
 						//console.log(str);
 						var lien = resultats.results.bindings[i].c.value;
-						
+
 						var ligne = document.createElement("li"); // Create a <li> node
-						 
+
 						var url = window.location.href;
-				
+
 						var url2 = url.substr(0, url.indexOf("Resultats.html"));
-						
+
 						var url3 = url2 + "InfosManga.html?lien=" + lien;
 
 						var contenu_ligne = "<p><a id='paragraphe_resultat"+i+"' onclick='navigationPageInfosManga("+lien+")' href="+url3+">"+resultats.results.bindings[i].name.value+"  </a></p>";
-						
-						ligne.innerHTML = contenu_ligne;
-						
-						document.getElementById("liste_resultats").appendChild(ligne); // Append <li> to <ul> with id="liste_resultats" 
-						
+
+				//		ligne.innerHTML = contenu_ligne;
+
+						document.getElementById("liste_resultats").appendChild(ligne); // Append <li> to <ul> with id="liste_resultats"
+
 					});
 				});
 			}
-			
+
 			function navigationPageInfosManga(lien) {
-			
+
 				console.log("click sur : "+lien);
 				console.log(url3);
-				
+
 				/*var url = window.location.href;
-				
+
 				var url2 = url.substr(0, url.indexOf("Resultats.html"));
-				
+
 				var url3 = url2 + "InfosManga.html?lien=" + lien;
-				
+
 				window.location.href = url3;*/
-				
+
 			}
-			
+
 			//Script de l'autocomplétion, source: W3schools, How to - Autocomplete url:https://www.w3schools.com/howto/howto_js_autocomplete.asp
-				
+
 				autocomplete(document.getElementById("motCle"));
-				
+
 				function autocomplete(inp) {
 					/*the autocomplete function takes two arguments,
 					the text field element and an array of possible autocompleted values:*/
@@ -121,18 +121,18 @@
 
 						/*for each item in the array...*/
 						//for (i = 0; i < arr.length; i++) {
-						
+
 						var query = encodeURIComponent('Select distinct ?c ?name where{?c dbo:type dbr:Manga. ?c dbp:name ?name. ?c dbp:jaRomaji ?romaji. ?c dbp:jaKanji ?kanji. filter (contains(lcase(str(?name)),lcase("'+val+'")) || contains(lcase(str(?romaji)),lcase("'+val+'")) || contains(str(?kanji),lcase("'+val+'")) )}');
 						var url = 'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query='+ query +'&output=json';
 						$.getJSON(url+"&callback=?", function(resultats) {
-							
+
 							var size = resultats.results.bindings.length;
-							
+
 							//console.log('taille result : '+size);
-							
+
 							//On limitera aux 10 premiers les résultats
 							var tabResultats = [];
-							
+
 							if (size>10) {
 								for(var i = 0; i < 10; i++) {
 									tabResultats[i] = resultats.results.bindings[i].name.value ;
@@ -142,13 +142,13 @@
 									tabResultats[i] = resultats.results.bindings[i].name.value ;
 								}
 							}
-							
+
 							//console.log('taille tab : '+tabResultats.length);
-							
+
 							suiteAutocomplete(tabResultats, a, b );
-							
+
 						});
-						
+
 					});
 					/*execute a function presses a key on the keyboard:*/
 					inp.addEventListener("keydown", function(e) {
@@ -178,7 +178,7 @@
 					function suiteAutocomplete(tabResultats, a, b ) {
 						if(tabResultats.length > 0){
 							for(var i = 0; i < tabResultats.length; i++) {
-								
+
 								/*check if the item starts with the same letters as the text field value:*/
 								//if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
 
@@ -203,7 +203,7 @@
 									(or any other open lists of autocompleted values:*/
 									closeAllLists();
 								});
-								
+
 								a.appendChild(b);
 							}
 						}
@@ -239,8 +239,8 @@
 						closeAllLists(e.target);
 					});
 				}
-			
-			
+
+
 		</script>
 
     </body> <!-- fin de la 2e partie : le corps (la partie visible) -->
